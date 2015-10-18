@@ -1,0 +1,14 @@
+--- tmux.spec.orig	2015-10-18 17:03:30.642880268 +0900
++++ tmux.spec	2015-10-18 17:10:47.462881239 +0900
+@@ -10,8 +10,10 @@ License:        ISC and BSD
+ URL:            http://sourceforge.net/projects/tmux
+ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+ 
++Requires:       libevent >= 1.4.14
++
+ BuildRequires:  ncurses-devel
+-BuildRequires:  libevent-devel
++BuildRequires:  libevent-devel >= 1.4.14
+ 
+ %description
+ tmux is a "terminal multiplexer."  It enables a number of terminals (or
