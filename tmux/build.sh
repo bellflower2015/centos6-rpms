@@ -1,16 +1,11 @@
-dir=$(cd $(dirname "$0") && pwd)
-. "$dir/../config.sh"
+CURDIR=$(cd $(dirname "$0") && pwd)
+. "$CURDIR/../config.sh"
 
-VERSION=2.0
+NAME=tmux
 SRPM=https://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/source/SRPMS/t/tmux-2.0-2.fc23.src.rpm
 
-rpmi $SRPM
+install_srpm
 
-cd $SPECSDIR
-patch tmux.spec < $dir/tmux.spec.patch
-rpmbuild -bs --rmsource tmux.spec
-sudo yum-builddep -y $SRPMSDIR/tmux-*.src.rpm
-rpmbuild --rebuild $SRPMSDIR/tmux-*.src.rpm
+patch_spec
 
-cd $dir
-log_rpm
+do_build

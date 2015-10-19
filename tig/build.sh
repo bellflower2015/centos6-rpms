@@ -1,20 +1,17 @@
-dir=$(cd $(dirname "$0") && pwd)
-. "$dir/../config.sh"
+CURDIR=$(cd $(dirname "$0") && pwd)
+. "$CURDIR/../config.sh"
 
+NAME=tig
 VERSION=2.1.1
-URL=http://jonas.nitro.dk/tig/releases/tig-${VERSION}.tar.gz
+SRC_URL=http://jonas.nitro.dk/tig/releases/${NAME}-${VERSION}.tar.gz
+
+get_src
 
 cd $SOURCESDIR
-curl -LO $URL
-gunzip -c tig-${VERSION}.tar.gz | tar xf - tig-${VERSION}/tig.spec
-cp tig-${VERSION}/tig.spec $SPECSDIR/
-rmdir tig-${VERSION}
+gunzip -c $(basename $SRC_URL) | tar xf - ${NAME}-${VERSION}/${NAME}.spec
+mv ${NAME}-${VERSION}/${NAME}.spec $SPECSDIR/
+rmdir ${NAME}-${VERSION}
 
-cd $SPECSDIR
-patch tig.spec < $dir/tig.spec.patch
-rpmbuild -bs --rmsource tig.spec
-sudo yum-builddep -y $SRPMSDIR/tig-*.src.rpm
-rpmbuild --rebuild $SRPMSDIR/tig-*.src.rpm
+patch_spec
 
-cd $dir
-log_rpm
+do_build

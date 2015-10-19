@@ -1,34 +1,14 @@
---- git.spec.orig	2015-10-06 22:03:14.000000000 +0900
-+++ git.spec	2015-10-18 15:02:29.247890100 +0900
-@@ -15,7 +15,7 @@
- %global emacs_old           1
- %global docbook_suppress_sp 1
- %global enable_ipv6         1
--%global use_prebuilt_docs   1
-+%global use_prebuilt_docs   0
- %global filter_yaml_any     1
- %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
- %else
-@@ -43,7 +43,7 @@
+--- git.spec.orig	2015-10-20 00:21:39.893744298 +0900
++++ git.spec	2015-10-20 00:22:24.421733637 +0900
+@@ -25,7 +25,7 @@
+ %global emacs_old           0
+ %global docbook_suppress_sp 0
+ %global enable_ipv6         0
+-%global use_prebuilt_docs   0
++%global use_prebuilt_docs   1
+ %global filter_yaml_any     0
  %endif
  
- Name:           git
--Version:        2.6.1
-+Version:        2.6.2
- Release:        1%{?dist}
- Summary:        Fast Version Control System
- License:        GPLv2
-@@ -55,8 +55,8 @@ Source3:        git.xinetd.in
- Source4:        git.conf.httpd
- Source5:        git-gui.desktop
- Source6:        gitweb.conf.in
--Source10:       http://www.kernel.org/pub/software/scm/git/%{name}-manpages-%{version}.tar.gz
--Source11:       http://www.kernel.org/pub/software/scm/git/%{name}-htmldocs-%{version}.tar.gz
-+#Source10:       http://www.kernel.org/pub/software/scm/git/%{name}-manpages-%{version}.tar.gz
-+#Source11:       http://www.kernel.org/pub/software/scm/git/%{name}-htmldocs-%{version}.tar.gz
- Source12:       git@.service
- Source13:       git.socket
- Patch0:         git-1.8-gitweb-home-link.patch
 @@ -221,7 +221,7 @@ Requires:       git = %{version}-%{relea
  Summary:        Git tools for importing Subversion repositories
  Group:          Development/Tools
@@ -38,3 +18,19 @@
  %if ! %{defined perl_bootstrap}
  Requires:       perl(Term::ReadKey)
  %endif
+@@ -444,12 +444,12 @@ make -C contrib/credential/gnome-keyring
+ %endif
+ 
+ make -C contrib/subtree install
+-%if ! %{use_prebuilt_docs}
++#%if ! %{use_prebuilt_docs}
+ make -C contrib/subtree install-doc
+-%endif
++#%endif
+ # it's ugly hack, but this file don't need to be copied to this directory
+ # it's already part of git-core-doc and it's alone here
+-rm -f %{buildroot}%{_pkgdocdir}/git-subtree.html
++#rm -f %{buildroot}%{_pkgdocdir}/git-subtree.html
+ 
+ mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
+ install -pm 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/git.conf

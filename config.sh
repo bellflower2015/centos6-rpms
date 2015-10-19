@@ -1,3 +1,5 @@
+set -e
+
 RPMBUILDDIR=~/rpmbuild
 builddirs=(BUILD BUILDROOT RPMS SOURCES SPECS SRPMS)
 for d in ${builddirs[@]}; do
@@ -19,13 +21,42 @@ log_rpm() {
     find ~/rpmbuild/RPMS/  -type f -name "*.rpm" -printf '%f\n' >> $file
 }
 
-rpmi() {
-    local srpm=$1
+install_srpm() {
     local tmpdir=$(mktemp -d)
-    local path=$tmpdir/$(basename $srpm)
-    if echo "$srpm" | grep -s ^http; then
-        curl -L $srpm -o $path
+    local path=$tmpdir/$(basename $SRPM)
+    if echo "$SRPM" | grep -s ^http; then
+        curl -L $SRPM -o $path
     fi
-    rpm -i $path 2>/dev/null
-    rm -rf $tmpdir
+    rpm -i $path 2>/dev/null && rm -rf $tmpdir
+}
+
+rm_src() {
+    rm "$SOURCESDIR/$1"
+}
+
+get_src() {
+    local dst=${1:-$(basename "$SRC_URL")}
+    curl -L $SRC_URL -o "$SOURCESDIR/$dst"
+}
+
+patch_spec() {
+    if [ -r $CURDIR/${NAME}.spec.patch ]; then
+        patch $SPECSDIR/${NAME}.spec < $CURDIR/${NAME}.spec.patch
+    fi
+}
+
+do_build() {
+    local define=$1
+
+    rpmbuild -bs --rmsource $SPECSDIR/${NAME}.spec
+    sudo yum-builddep -y $SRPMSDIR/${NAME}-*.src.rpm
+
+    if [ ! -z "$define" ]; then
+        rpmbuild --rebuild --define="$define" $SRPMSDIR/${NAME}-*.src.rpm
+    else
+        rpmbuild --rebuild $SRPMSDIR/${NAME}-*.src.rpm
+    fi
+
+    cd $CURDIR
+    log_rpm
 }

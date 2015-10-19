@@ -1,20 +1,20 @@
-dir=$(cd $(dirname "$0") && pwd)
-. "$dir/../config.sh"
+CURDIR=$(cd $(dirname "$0") && pwd)
+. "$CURDIR/../config.sh"
 
+NAME=bellflower-test
 VERSION=6
-BASENAME=bellflower-test-${VERSION}
+BASENAME=${NAME}-${VERSION}
+
+cp ${NAME}.spec $SPECSDIR/
 
 tmpdir=$(mktemp -d)
 
 cd $tmpdir
 mkdir $BASENAME
-cp $dir/bellflower-test.repo $BASENAME/
+cp $CURDIR/bellflower-test.repo $BASENAME/
 tar czf ${BASENAME}.tar.gz $BASENAME
 mv ${BASENAME}.tar.gz $SOURCESDIR/
-
-cd $dir
+cd $CURDIR
 rm -rf $tmpdir
-rpmbuild -ba bellflower-test.spec
 
-cd $dir
-log_rpm
+do_build
