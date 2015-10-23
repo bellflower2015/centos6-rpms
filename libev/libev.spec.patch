@@ -1,0 +1,12 @@
+--- libev.spec.orig	2015-10-25 03:26:58.921978908 +0900
++++ libev.spec	2015-10-25 03:27:13.438992070 +0900
+@@ -75,8 +75,7 @@ install -p -m 0644 Changes ev.pod LICENS
+ %postun -p /sbin/ldconfig
+ 
+ %files
+-%license LICENSE
+-%doc Changes README
++%doc LICENSE Changes README
+ %{_libdir}/%{name}.so.4
+ %{_libdir}/%{name}.so.4.0.0
+ 
