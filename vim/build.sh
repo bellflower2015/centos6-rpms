@@ -2,7 +2,7 @@ CURDIR=$(cd $(dirname "$0") && pwd)
 . "$CURDIR/../config.sh"
 
 NAME=vim
-VERSION=7.4.898
+VERSION=7.4.900
 SRC_URL=https://github.com/vim/vim/archive/v${VERSION}.tar.gz
 SRPM=http://vault.centos.org/6.7/os/Source/SPackages/vim-7.4.629-5.el6.src.rpm
 

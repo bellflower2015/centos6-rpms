@@ -2,7 +2,7 @@
 +++ vim.spec	2015-10-15 03:45:35.000000000 +0900
 @@ -1,4 +1,4 @@
 -%define patchlevel 629
-+%define patchlevel 898
++%define patchlevel 900
  %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
  %define WITH_SELINUX 1
  %endif
@@ -1375,10 +1375,13 @@
  %if "%{withnetbeans}" == "1"
    --enable-netbeans \
  %else
-@@ -1984,6 +723,12 @@ rm -rf %{buildroot}
+@@ -1984,6 +723,15 @@ rm -rf %{buildroot}
  %{_datadir}/icons/hicolor/*/apps/*
  
  %changelog
++* Mon Oct 26 2015 Kikyou Akino <bellflower@web4u.jp> 7.4.900-1
++- patchlevel 900
++
 +* Thu Oct 15 2015 Kikyou Akino <bellflower@web4u.jp> 7.4.898-1
 +- patchlevel 898
 +
