@@ -1,5 +1,14 @@
---- tmux.spec.orig	2015-10-18 17:03:30.642880268 +0900
-+++ tmux.spec	2015-10-18 17:10:47.462881239 +0900
+--- tmux.spec.orig	2015-10-26 16:30:59.662679604 +0900
++++ tmux.spec	2015-10-26 16:34:12.676669281 +0900
+@@ -1,6 +1,6 @@
+ Name:           tmux
+-Version:        2.0
+-Release:        2%{?dist}
++Version:        2.1
++Release:        1%{?dist}
+ Summary:        A terminal multiplexer
+ 
+ Group:          Applications/System
 @@ -10,8 +10,10 @@ License:        ISC and BSD
  URL:            http://sourceforge.net/projects/tmux
  Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -12,3 +21,13 @@
  
  %description
  tmux is a "terminal multiplexer."  It enables a number of terminals (or
+@@ -52,6 +54,9 @@ fi
+ %{_mandir}/man1/tmux.1.*
+ 
+ %changelog
++* Mon Oct 26 2015 Kikyou Akino <bellflower@web4u.jp> 2.1-1
++- New upstream release 2.1
++
+ * Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0-2
+ - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+ 
