@@ -52,9 +52,9 @@ do_build() {
     sudo yum-builddep -y $SRPMSDIR/${NAME}-*.src.rpm
 
     if [ ! -z "$define" ]; then
-        rpmbuild --rebuild --define="$define" $SRPMSDIR/${NAME}-*.src.rpm
+        rpmbuild --rebuild --sign --define="$define" $SRPMSDIR/${NAME}-*.src.rpm
     else
-        rpmbuild --rebuild $SRPMSDIR/${NAME}-*.src.rpm
+        rpmbuild --rebuild --sign $SRPMSDIR/${NAME}-*.src.rpm
     fi
 
     cd $CURDIR
