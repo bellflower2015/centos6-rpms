@@ -1,5 +1,5 @@
---- git.spec.orig	2015-10-21 16:27:56.150062440 +0900
-+++ git.spec	2015-10-21 16:29:04.074060031 +0900
+--- git.spec.orig	2015-12-24 11:32:34.834447599 +0900
++++ git.spec	2015-12-24 11:37:42.508445096 +0900
 @@ -25,7 +25,7 @@
  %global emacs_old           0
  %global docbook_suppress_sp 0
@@ -42,8 +42,8 @@
 +#%endif
  # it's ugly hack, but this file don't need to be copied to this directory
  # it's already part of git-core-doc and it's alone here
--rm -f %{buildroot}%{_pkgdocdir}/git-subtree.html
-+#rm -f %{buildroot}%{_pkgdocdir}/git-subtree.html
+-rm -f %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/git-subtree.html
++#rm -f %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/git-subtree.html
  
  mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
  install -pm 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/git.conf
