@@ -1,8 +1,8 @@
---- vim.spec.orig	2015-04-01 00:07:25.000000000 +0900
-+++ vim.spec	2015-10-15 03:45:35.000000000 +0900
+--- /home/mockbuild/rpmbuild/SPECS/vim.spec.orig	2015-12-24 11:19:05.773445539 +0900
++++ /home/mockbuild/rpmbuild/SPECS/vim.spec	2015-12-24 11:21:14.548446914 +0900
 @@ -1,4 +1,4 @@
 -%define patchlevel 629
-+%define patchlevel 900
++%define patchlevel 979
  %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
  %define WITH_SELINUX 1
  %endif
@@ -1375,10 +1375,13 @@
  %if "%{withnetbeans}" == "1"
    --enable-netbeans \
  %else
-@@ -1984,6 +723,15 @@ rm -rf %{buildroot}
+@@ -1984,6 +723,18 @@ rm -rf %{buildroot}
  %{_datadir}/icons/hicolor/*/apps/*
  
  %changelog
++* Thu Dec 24 2015 Kikyou Akino <bellflower@web4u.jp> 7.4.979-1
++- patchlevel 979
++
 +* Mon Oct 26 2015 Kikyou Akino <bellflower@web4u.jp> 7.4.900-1
 +- patchlevel 900
 +
